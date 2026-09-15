@@ -14,7 +14,7 @@ Instead of using mathematical transformations that require operations such as lo
 
 **LFSRs → Uniform Random Sources → CLT Summation → Gaussian Random Sequence**
 
-The design was developed and validated using **AMD Vitis Model Composer** and **MATLAB**, with the goal of generating a reusable FPGA IP block for integration into **AMD Vivado**.
+The design was developed and validated using **AMD Vitis Model Composer** and **MATLAB** to generate a reusable FPGA IP block for integration into **AMD Vivado**.
 
 > **Detailed project walkthrough:**
 > https://www.hackster.io/mehtisham/generating-gaussian-noise-in-fpga-using-lfsrs-and-clt-406607
@@ -34,7 +34,7 @@ Each LFSR produces a fixed-point uniform pseudo-random sequence. The twelve outp
        LFSR 4 ─────┤
        LFSR 5 ─────┤
        LFSR 6 ─────┤
-       LFSR 7 ─────┼──→ Summation ──→ Mean Removal ──→ Gaussian Output
+       LFSR 7 ─────┼── Summation ── Mean Removal ── Gaussian Output
        LFSR 8 ─────┤
        LFSR 9 ─────┤
        LFSR 10 ────┤
@@ -42,7 +42,7 @@ Each LFSR produces a fixed-point uniform pseudo-random sequence. The twelve outp
        LFSR 12 ────┘
 ```
 
-![Architecture](figures/architecture.png)
+![Architecture](figures/model_composer_design.png)
 
 ---
 
@@ -141,7 +141,7 @@ The Model Composer design contains:
 
 Each clock cycle produces one sample from every LFSR, allowing the twelve sources to be processed in parallel.
 
-![Model Composer Design](figures/model_composer_design.png)
+![Model Composer Design](figures/model_composer_implementation.png)
 
 ---
 
@@ -194,11 +194,9 @@ The generated sequence produced:
 
 **Standard deviation = 1.007682**
 
-![Gaussian Distribution](figures/gaussian_distribution.png)
-
 The generated histogram follows the expected bell-shaped Gaussian profile.
 
-![Gaussian PDF](figures/gaussian_pdf.png)
+![Gaussian PDF](figures/Gaussian_PDF.png)
 
 ---
 
@@ -232,7 +230,7 @@ After mean removal:
 
 **G = S − 6**
 
-the measured result was:
+The measured result was:
 
 **G mean = 0.000527**
 
@@ -366,11 +364,10 @@ Gaussian-Noise-in-FPGA-using-LFSRs-and-CLT/
 │   └── Gaussian_processing.m
 │
 └── figures/
-    ├── architecture.png
+    ├── Gaussian_Algorithm.png
     ├── model_composer_design.png
-    ├── lfsr_architecture.png
-    ├── gaussian_distribution.png
-    ├── gaussian_pdf.png
+    ├── model_composer_implementation.png
+    ├── gaussian_PDF.png
     ├── correlation_matrix.png
     ├── resource_analysis.png
     └── timing_analysis.png
@@ -385,31 +382,6 @@ Gaussian-Noise-in-FPGA-using-LFSRs-and-CLT/
 * **AMD Vivado**
 * Fixed-point digital signal processing
 * FPGA-based pseudo-random sequence generation
-
----
-
-## Project Status
-
-### Completed
-
-* [x] 12 parallel LFSR architecture
-* [x] Uniform pseudo-random sequence generation
-* [x] CLT-based Gaussian generation
-* [x] Fixed-point implementation
-* [x] MATLAB statistical validation
-* [x] Gaussian distribution analysis
-* [x] 68–95–99.7 validation
-* [x] 12 × 12 correlation analysis
-* [x] Model Composer hardware-oriented design
-* [x] FPGA IP generation flow
-
-### In Progress / Future Work
-
-* [ ] Vivado-level simulation
-* [ ] Post-synthesis resource analysis
-* [ ] Timing analysis
-* [ ] FPGA hardware validation
-* [ ] Integration with a larger real-time signal-processing system
 
 ---
 
